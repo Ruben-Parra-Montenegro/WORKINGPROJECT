@@ -22,20 +22,21 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import org.apache.poi.ss.usermodel.Sheet;
-//import org.apache.poi.ss.usermodel.Cell;
+
 
 public class DataEntry {
 
-    ObservableList<String> ExerciseList = FXCollections.observableArrayList("Please pick Exercise", "Back Extentions",
-            "Lu Raises",
-            "Front Squat", "Back Squat", "Push Press", "Shoulder Press", "Snatch Pulls", "Snatch", "Clean and Jerk",
-            "Clean Pulls", "Jerk", "Deadlift",
-            "Squat", "Bench Press", "Pull Up", "Barbell Rows", "Cable Rows", "Lat Pulldowns", "Dumbell Curls",
-            "Tricep Pull downs", "Sit ups", "Hip Adductor", "Hip Abductor", "Leg Press", "Leg Curl", "Leg Extension",
-            "Other", "None");
-    ObservableList<String> CardioList = FXCollections.observableArrayList("Please pick Exercise", "Running", "Cycling",
-            "Rowing",
-            "Other", "None");
+    ObservableList<String> ExerciseList = FXCollections.observableArrayList("Please pick Exercise","Squat","Bench Press", "Back Extentions","Front Squat", "Back Squat", "Push Press", "Shoulder Press", "Snatch Pulls", "Snatch", "Clean and Jerk",
+    "Clean Pulls", "Jerk", "Deadlift");
+    
+    
+   
+    //         "Squat", "Bench Press", "Pull Up", "Barbell Rows", "Cable Rows", "Lat Pulldowns", "Dumbell Curls",
+    //         "Tricep Pull downs", "Sit ups", "Hip Adductor", "Hip Abductor", "Leg Press", "Leg Curl", "Leg Extension",
+    //         "Other", "None");
+    ObservableList<String> CardioList = FXCollections.observableArrayList("Please pick Exercise", "Running", "Cycling");
+            // "Rowing",
+            // "Other", "None");
 
     @SuppressWarnings("unchecked")
     @FXML
@@ -80,152 +81,38 @@ public class DataEntry {
     @FXML
     private ChoiceBox E1;
 
-    @FXML
-    private TextField E1S1W;
-
-    @FXML
-    private TextField E1S2W;
-
-    @FXML
-    private TextField E1S3W;
-
-    @FXML
-    private TextField E1S4W;
-
-    @FXML
-    private TextField E1S5W;
-
-    @FXML
-    private TextField E1S6W;
+    
 
     @SuppressWarnings("rawtypes")
     @FXML
     private ChoiceBox E2;
 
-    @FXML
-    private TextField E2S1W;
-
-    @FXML
-    private TextField E2S2W;
-
-    @FXML
-    private TextField E2S3W;
-
-    @FXML
-    private TextField E2S4W;
-
-    @FXML
-    private TextField E2S5W;
-
-    @FXML
-    private TextField E2S6W;
+    
 
     @SuppressWarnings("rawtypes")
     @FXML
     private ChoiceBox E3;
 
-    @FXML
-    private TextField E3S1W;
-
-    @FXML
-    private TextField E3S2W;
-
-    @FXML
-    private TextField E3S3W;
-
-    @FXML
-    private TextField E3S4W;
-
-    @FXML
-    private TextField E3S5W;
-
-    @FXML
-    private TextField E3S6W;
+   
 
     @SuppressWarnings("rawtypes")
     @FXML
     private ChoiceBox E4;
 
-    @FXML
-    private TextField E4S1W;
-
-    @FXML
-    private TextField E4S2W;
-
-    @FXML
-    private TextField E4S3W;
-
-    @FXML
-    private TextField E4S4W;
-
-    @FXML
-    private TextField E4S5W;
-
-    @FXML
-    private TextField E4S6W;
+    
 
     @SuppressWarnings("rawtypes")
     @FXML
     private ChoiceBox E5;
 
-    @FXML
-    private TextField E5S1W;
-
-    @FXML
-    private TextField E5S2W;
-
-    @FXML
-    private TextField E5S3W;
-
-    @FXML
-    private TextField E5S4W;
-
-    @FXML
-    private TextField E5S5W;
-
-    @FXML
-    private TextField E5S6W;
+    
 
     @SuppressWarnings("rawtypes")
     @FXML
     private ChoiceBox E6;
 
-    @FXML
-    private TextField E6S1W;
-
-    @FXML
-    private TextField E6S2W;
-
-    @FXML
-    private TextField E6S3W;
-
-    @FXML
-    private TextField E6S4W;
-
-    @FXML
-    private TextField E6S5W;
-
-    @FXML
-    private TextField E6S6W;
-
-    @FXML
-    private TextField Rep1input;
-
-    @FXML
-    private TextField Rep2input;
-
-    @FXML
-    private TextField Rep3input;
-
-    @FXML
-    private TextField Rep4input;
-
-    @FXML
-    private TextField Rep5input;
-
-    @FXML
-    private TextField Rep6input;
-
+   
+    
     @FXML
     private Button SavetoFile;
 
@@ -267,20 +154,24 @@ public class DataEntry {
             e.printStackTrace();
         }
     }
-
     @FXML
     void AnalyticsClicked(ActionEvent event) {
         try {
             // Load the FXML file for the Analytics window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Analytics.fxml"));
             Parent root = loader.load();
-
+    
             // Create a new scene and stage for the Analytics window
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Analytics"); // Set the title of the stage here
             stage.show(); // Show the new stage
+    
+            // Close the current window
+            Stage currentStage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+            currentStage.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -311,53 +202,15 @@ public class DataEntry {
 
             // Write the data to the empty row in the specified column
             String[] data = { DateInput.getValue().toString(), Weight.getText(), Cardiotype.getValue().toString(),
-                    CardioTime.getText(),
+                    CardioTime.getText(),Set1input.getText(), Set2input.getText(), Set3input.getText(),
+                    Set4input.getText(), Set5input.getText(), Set6input.getText(), 
+                   
                     E1.getValue().toString(), E2.getValue().toString(),
                     E3.getValue().toString(), E4.getValue().toString(), E5.getValue().toString(),
-                    E6.getValue().toString(), Set1input.getText(), Set2input.getText(), Set3input.getText(),
-                    Set4input.getText(), Set5input.getText(), Set6input.getText(), Rep1input.getText(),
-                    Rep2input.getText(), Rep3input.getText(), Rep4input.getText(), Rep5input.getText(),
-                    Rep6input.getText(), E1S1W.getText(),
-                    E1S2W.getText(),
-                    E1S3W.getText(),
-                    E1S4W.getText(),
-                    E1S5W.getText(),
-                    E1S6W.getText(),
-                    E2S1W.getText(),
-                    E2S2W.getText(),
-                    E2S3W.getText(),
-                    E2S4W.getText(),
-                    E2S5W.getText(),
-                    E2S6W.getText(),
-                    E3S1W.getText(),
-                    E3S2W.getText(),
-                    E3S3W.getText(),
-                    E3S4W.getText(),
-                    E3S5W.getText(),
-                    E3S6W.getText(),
-                    E4S1W.getText(),
-                    E4S2W.getText(),
-                    E4S3W.getText(),
-                    E4S4W.getText(),
-                    E4S5W.getText(),
-                    E4S6W.getText(),
-                    E5S1W.getText(),
-                    E5S2W.getText(),
-                    E5S3W.getText(),
-                    E5S4W.getText(),
-                    E5S5W.getText(),
-                    E5S6W.getText(),
-                    E6S1W.getText(),
-                    E6S2W.getText(),
-                    E6S3W.getText(),
-                    E6S4W.getText(),
-                    E6S5W.getText(),
-                    E6S6W.getText()/*
-                                    * , add
-                                    * more
-                                    * data
-                                    * here
-                                    */ };
+                    E6.getValue().toString()
+                   
+                    
+                                  };
             Row row = sheet.getRow(rowNum);
             if (row == null) {
                 row = sheet.createRow(rowNum);

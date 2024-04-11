@@ -3,6 +3,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +65,10 @@ public class MainScene {
      * }
      */
     @FXML
+    void EXIT(ActionEvent event) {
+      Platform.exit();
+    }
+    @FXML
     void NewFileClicked(ActionEvent event) {
         // Create a new workbook
         Workbook workbook = new XSSFWorkbook();
@@ -76,16 +81,19 @@ public class MainScene {
 
         // Header
         String[] headers = new String[] {
-                "Date", "Weight", "CardioType", "Cardio time", "Exercise1", "Exercise2", "Exercise3", "Exercise4",
+                "Date", "Weight", "CardioType", "Cardio time",
+                
+                "WExercise1", "WExercise2", "WExercise3", "WExercise4",
+                "WExercise5", "WExercise6",  "Exercise1", "Exercise2", "Exercise3", "Exercise4",
                 "Exercise5", "Exercise6",
-                "Set1", "Set2", "Set3", "Set4", "Set5", "Set6",
-                "Rep1", "Rep2", "Rep3", "Rep4", "Rep5", "Rep6",
-                "E1S1Weight", "E1S2Weight", "E1S3Weight", "E1S4Weight", "E1S5Weight", "E1S6Weight",
-                "E2S1Weight", "E2S2Weight", "E2S3Weight", "E2S4Weight", "E2S5Weight", "E2S6Weight",
-                "E3S1Weight", "E3S2Weight", "E3S3Weight", "E3S4Weight", "E3S5Weight", "E3S6Weight",
-                "E4S1Weight", "E4S2Weight", "E4S3Weight", "E4S4Weight", "E4S5Weight", "E4S6Weight",
-                "E5S1Weight", "E5S2Weight", "E5S3Weight", "E5S4Weight", "E5S5Weight", "E5S6Weight",
-                "E6S1Weight", "E6S2Weight", "E6S3Weight", "E6S4Weight", "E6S5Weight", "E6S6Weight"
+                // "Set1", "Set2", "Set3", "Set4", "Set5", "Set6",
+                // "Rep1", "Rep2", "Rep3", "Rep4", "Rep5", "Rep6",
+                // "E1S1Weight", "E1S2Weight", "E1S3Weight", "E1S4Weight", "E1S5Weight", "E1S6Weight",
+                // "E2S1Weight", "E2S2Weight", "E2S3Weight", "E2S4Weight", "E2S5Weight", "E2S6Weight",
+                // "E3S1Weight", "E3S2Weight", "E3S3Weight", "E3S4Weight", "E3S5Weight", "E3S6Weight",
+                // "E4S1Weight", "E4S2Weight", "E4S3Weight", "E4S4Weight", "E4S5Weight", "E4S6Weight",
+                // "E5S1Weight", "E5S2Weight", "E5S3Weight", "E5S4Weight", "E5S5Weight", "E5S6Weight",
+                // "E6S1Weight", "E6S2Weight", "E6S3Weight", "E6S4Weight", "E6S5Weight", "E6S6Weight"
         };
 
         // Create cells
@@ -135,7 +143,7 @@ public class MainScene {
             System.out.println("Selected File: " + filePath);
             SharedFilePath.getInstance().setFilePath(filePath);
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("DataEntry.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DataEntry2.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

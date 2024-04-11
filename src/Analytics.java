@@ -57,16 +57,17 @@
 //     }
 
 // }
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,56 +79,64 @@ import java.util.ResourceBundle;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
+
 public class Analytics implements Initializable {
 
-    @SuppressWarnings("rawtypes")
-    @FXML
-    private ChoiceBox ChooseCardio;
-
+   
     @FXML
     private ScatterChart<String, Number> ScatterChartC;
 
     @FXML
     private ScatterChart<String, Number> ScatterChartYourWeight;
 
+ 
     @FXML
-    void ClearData(ActionEvent event) {
-
-    }
-
-    @FXML
-    void LoadData(ActionEvent event) {
-        String selectedCardioType = ChooseCardio.getValue().toString();
-        populateChart2(ScatterChartC, SharedFilePath.getInstance().getFilePath(), 1,
-        56, 57);
-
-        // System.out.println("Selected Cardio Type: " + ChooseCardio.getValue());
-        System.out.println("Chart Data: " + ScatterChartC.getData());
-    }
+    private ScatterChart<String, Number> Weightlift1;
 
     @FXML
-    void MainMenu(ActionEvent event) {
+    private ScatterChart<String, Number> Weightlift2;
 
+    @FXML
+void MainMenu(ActionEvent event) {
+    try {
+        // Load the main scene
+        Parent root = FXMLLoader.load(getClass().getResource("MainScene.fxml"));
+        Scene mainScene = new Scene(root);
+
+        // Get the current stage and set the main scene
+        Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+        stage.setScene(mainScene);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
-    ObservableList<String> CardioList = FXCollections.observableArrayList("Please pick Exercise", "Running", "Cycling",
-            "Rowing",
-            "Other", "None");
+   
 
     @SuppressWarnings("unchecked")
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        ChooseCardio.setValue("Please pick Exercise");
-        ChooseCardio.setItems(CardioList);
+        
         // ...
         populateChart(ScatterChartYourWeight, SharedFilePath.getInstance().getFilePath(), 0, 1);
         // ...
-        populateChart2(ScatterChartC, SharedFilePath.getInstance().getFilePath(), 0, 2, 3);
+       populateChart(ScatterChartC, SharedFilePath.getInstance().getFilePath(), 0, 3);
+
+       populateChart(Weightlift1, SharedFilePath.getInstance().getFilePath(), 0, 4);
+       // ...
+      populateChart(Weightlift2, SharedFilePath.getInstance().getFilePath(), 0, 5);
+
+
+
+
+
+
         // System.out.println("File Path: " +
         // (SharedFilePath.getInstance().getFilePath()));
         // System.out.println("Chart Data: " + ScatterChartYourWeight.getData());
-        printData((SharedFilePath.getInstance().getFilePath()), 0, 1, 2, 3);
+      
 
     }
 
@@ -178,81 +187,48 @@ public class Analytics implements Initializable {
         chart.getData().add(series);
     }
 
-    private void populateChart2(ScatterChart<String, Number> chart, String filePath, int dateColumn,
-            int cardioTypeColumn, int cardioTimeColumn) {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        double maxYValue = Double.MIN_VALUE;
-        String selectedCardioType = ChooseCardio.getValue().toString();
-        try {
-            FileInputStream excelFile = new FileInputStream(new File(filePath));
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Sheet datatypeSheet = workbook.getSheetAt(0);
-            Iterator<Row> iterator = datatypeSheet.iterator();
+    // private void populateChart2(ScatterChart<String, Number> chart, String filePath, int dateColumn,
+    //         int cardioTypeColumn, int cardioTimeColumn) {
+    //     XYChart.Series<String, Number> series = new XYChart.Series<>();
+    //     double maxYValue = Double.MIN_VALUE;
+    //     String selectedCardioType = ChooseCardio.getValue().toString();
+    //     try {
+    //         FileInputStream excelFile = new FileInputStream(new File(filePath));
+    //         Workbook workbook = new XSSFWorkbook(excelFile);
+    //         Sheet datatypeSheet = workbook.getSheetAt(0);
+    //         Iterator<Row> iterator = datatypeSheet.iterator();
 
-            // Skip the first row
-            if (iterator.hasNext()) {
-                iterator.next();
-            }
+    //         // Skip the first row
+    //         if (iterator.hasNext()) {
+    //             iterator.next();
+    //         }
 
-            while (iterator.hasNext()) {
-                Row currentRow = iterator.next();
-                Cell dateCell = currentRow.getCell(dateColumn);
-                Cell cardioTypeCell = currentRow.getCell(cardioTypeColumn);
-                Cell cardioTimeCell = currentRow.getCell(cardioTimeColumn);
+    //         while (iterator.hasNext()) {
+    //             Row currentRow = iterator.next();
+    //             Cell dateCell = currentRow.getCell(dateColumn);
+    //             Cell cardioTypeCell = currentRow.getCell(cardioTypeColumn);
+    //             Cell cardioTimeCell = currentRow.getCell(cardioTimeColumn);
 
-                if (dateCell.getCellType() == CellType.STRING
-                        && cardioTypeCell.getCellType() == CellType.STRING
-                        && cardioTimeCell.getCellType() == CellType.NUMERIC) {
-                    double cardioTimeValue = cardioTimeCell.getNumericCellValue();
-                    System.out.println(cardioTimeCell.getNumericCellValue());
-                    series.getData().add(new XYChart.Data<>(dateCell.getStringCellValue(), cardioTimeValue));
-                    if (cardioTimeValue > maxYValue) {
-                        maxYValue = cardioTimeValue;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //             if (dateCell.getCellType() == CellType.STRING
+    //                     && cardioTypeCell.getCellType() == CellType.STRING
+    //                     && cardioTimeCell.getCellType() == CellType.NUMERIC) {
+    //                 double cardioTimeValue = cardioTimeCell.getNumericCellValue();
+    //                 System.out.println(cardioTimeCell.getNumericCellValue());
+    //                 series.getData().add(new XYChart.Data<>(dateCell.getStringCellValue(), cardioTimeValue));
+    //                 if (cardioTimeValue > maxYValue) {
+    //                     maxYValue = cardioTimeValue;
+    //                 }
+    //             }
+    //         }
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
 
-        // Update the y-axis range
-        updateYAxisRange(chart, maxYValue);
+    //     // Update the y-axis range
+    //     updateYAxisRange(chart, maxYValue);
 
-        chart.getData().add(series);
-    }
+    //     chart.getData().add(series);
+    // }
 
-    private void printData(String filePath, int... columns) {
-        try {
-            FileInputStream excelFile = new FileInputStream(new File(filePath));
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Sheet datatypeSheet = workbook.getSheetAt(0);
-            Iterator<Row> iterator = datatypeSheet.iterator();
-
-            while (iterator.hasNext()) {
-                Row currentRow = iterator.next();
-                for (int column : columns) {
-                    Cell cell = currentRow.getCell(column);
-                    if (cell != null) {
-                        switch (cell.getCellType()) {
-                            case CellType.STRING:
-                                // System.out.println("Column " + (column + 1) + ": " +
-                                // cell.getStringCellValue());
-                                break;
-                            case CellType.NUMERIC:
-                                // System.out.println("Column " + (column + 1) + ": " +
-                                // cell.getNumericCellValue());
-                                break;
-                            default:
-                                // System.out.println("Column " + (column + 1) + ": " + cell.getCellType());
-                                break;
-                        }
-                    } else {
-                        // System.out.println("Column " + (column + 1) + ": null");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
 }

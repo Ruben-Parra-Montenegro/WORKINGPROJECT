@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="793.0" style="-fx-background-color: #2F4F4F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainScene">
    <children>
-      <GridPane hgap="50.0" layoutX="268.0" layoutY="138.0" prefHeight="212.0" prefWidth="257.0" vgap="10.0" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="268.0" AnchorPane.topAnchor="138.0">
+      <GridPane hgap="50.0" layoutX="268.0" layoutY="172.0" prefHeight="225.0" prefWidth="257.0" vgap="10.0" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="268.0" AnchorPane.rightAnchor="268.0" AnchorPane.topAnchor="172.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -18,12 +18,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="NewFile" mnemonicParsing="false" onAction="#NewFileClicked" text="New File" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Button fx:id="OpenFile" mnemonicParsing="false" onAction="#OpenFIleClicked" text="Open File" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Select or create an Excel file to begin" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label text="Welcome to Workout Tracker" GridPane.halignment="CENTER" />
+            <Button fx:id="NewFile" mnemonicParsing="false" onAction="#NewFileClicked" prefHeight="72.0" prefWidth="91.0" style="-fx-background-radius: 10; -fx-background-color: #FFEBCD;" text="New File" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="OpenFile" mnemonicParsing="false" onAction="#OpenFIleClicked" prefHeight="41.0" prefWidth="91.0" style="-fx-background-radius: 10; -fx-background-color: #FFEBCD;" text="Open File" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="Select or create an Excel file to begin" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label text="Welcome to Workout Tracker" textFill="WHITE" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#EXIT" prefHeight="72.0" prefWidth="91.0" style="-fx-background-radius: 10; -fx-background-color: #FFEBCD;" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
